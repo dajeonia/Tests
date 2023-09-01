@@ -61,8 +61,6 @@ char	*ft_redi_path(const char *s, int *i)
 			break ;
 		else
 			path_node = ft_redi_path_node(s, i);
-
-		
 	}
 }
 
