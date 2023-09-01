@@ -42,6 +42,17 @@ char	*ft_envspace(t_info *info, const char *s, int *i)
 	return (value);
 }
 
+
+char	*ft_getenv_pid(void)
+{
+	return (ft_strdup(""));
+}
+
+char	*ft_getenv_status(void)
+{
+	return (ft_strdup(""));
+}
+
 int	ft_env_getkeysize(const char *s, int *i)
 {
 	int	len;
@@ -81,19 +92,4 @@ char	*ft_env_getvalue(t_info *info, const char *key)
 			value = ft_strdup(node->value);
 	}
 	return (value);
-}
-
-char	*ft_getenv_pid(void)
-{
-	return (ft_strdup(""));
-}
-
-char	*ft_getenv_status(void)
-{
-	return (ft_strdup(""));
-}
-
-char	*ft_env_getkey(const char *s, int start, int size)
-{
-	return (ft_substr(s, start, size));
 }
