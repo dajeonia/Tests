@@ -1,10 +1,3 @@
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("Test\n");
-}
-
 t_list	*ft_cmdnew(t_info *info, char *s)
 {
 	t_list	*cmd;
