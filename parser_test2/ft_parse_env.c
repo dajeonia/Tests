@@ -1,36 +1,25 @@
+char	*env_getval_base(t_info *info, char *key);
+
 t_list	*ft_parse_env(t_info *info, char *s, int *i)
 {
-	char	*val;
+	t_list	*value;
 	char	*key;
-	int		i;
-	t_list	*list;
-	t_list	*node;
 
 	if (env_getkey(&key, s, i) < 0)
 		return (NULL);
-	val = env_getval(info, s, i);
+	value = env_getval(info, key);
 	free(key);
-	if (val == NULL)
+	if (value == NULL)
 		return (NULL);
-	list = NULL;
-	i = 0;
-	while (val[i])
-	{
-		if (val[i] == ' ')
-			node = ft_parse_dup(s, i, " ");
-		else
-			node = ft_parse_token(s, i, " ");
-		if (node == NULL)
-		{
-			ft_txtclear(&list);
-			return (NULL);
-		}
-		ft_lstadd_back(&list, node);
-	}
-	return (val);
+	return (value);
 }
 
-int	env_getkey(char **key, char *s, int *i)
+t_list	*env_getval(t_info *info, char *key)
+{
+
+}
+
+int	env_getkey(char **key, const char *s, int *i)
 {
 	int		len;
 
@@ -38,15 +27,15 @@ int	env_getkey(char **key, char *s, int *i)
 	len = ft_toklen(s, *i, "\"\' <|>?!$");
 	if (len == 0)
 	{
-		if (ft_isin(s[*i], " <|>"))
+		if (s[*i] == '\0' || ft_isin(s[*i], " <|>"))
 		{
-			*key = NULL; // "$"
+			*key = NULL;
 			return (0);
 		}
 		else if (ft_isin(s[*i], "\"\'"))
-			*key = ft_substr(s, *i, 0); // ""
+			*key = ft_substr(s, *i, 0);
 		else if (ft_isin(s[*i], "!?$"))
-			*key = ft_substr(s, *i, 1); // "!, ?, $"
+			*key = ft_substr(s, *i, 1);
 		*i += 1;
 	}
 	else
@@ -61,18 +50,39 @@ int	env_getkey(char **key, char *s, int *i)
 
 t_list	*env_getval(t_info *info, char *key)
 {
-	t_env	*env_list;
+	char	*value;
+	t_list	*list;
+	t_list	*node;
 
+	val = env_getval_base(info, key);
+}
+
+char	*env_getval_base(t_info *info, char *key)
+{
 	if (key == NULL)
 		return (ft_strdup("$"));
 	else if (key[0] == '\0')
 		return (ft_strdup(""));
-	else if (ft_strcmp(key, "$"))
-		return ();
-	else if (ft_strcmp(key, "?"))
-		return ();
-	else if (ft_strcmp(key, "!"))
-		return ();
+	else if (ft_strcmp(key, "$") == 0)
+		return (ft_strdup(""));
+	else if (ft_strcmp(key, "?") == 0)
+		return (ft_itoa(info->status));
+	else if (ft_strcmp(key, "!") == 0)
+		return (ft_itoa(info->lastpid));
 	else
-		return (ft_env(info, key))
+		return (env_getfrominfo(info, key));
+}
+
+char	*env_getfrominfo(t_info *info, char *key)
+{
+	t_env	*node;
+
+	if (key == NULL)
+		return (ft_strdup(""));
+	else if (key[0] == '\0')
+		return (ft_strdup(""));
+	node = envsearch(info->envlst, key);
+	if (node == NULL || node->value == NULL)
+		return (ft_strdup(""));
+	return (ft_strdup(node->value));
 }
