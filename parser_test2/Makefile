@@ -1,6 +1,8 @@
 NAME = a.out
 LIBFT = libft
-SOURCES = main.c redi.c
+SOURCES = main.c redi.c test.c \
+		  ft_parse_token.c \
+		  utils.c
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 SRCS = $(addprefix $(SRC_DIR)/, $(SOURCES))
