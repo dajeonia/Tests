@@ -1,4 +1,5 @@
 char	*env_getval_base(t_info *info, char *key);
+t_list	*ft_parse_list(char *s);
 
 t_list	*ft_parse_env(t_info *info, char *s, int *i)
 {

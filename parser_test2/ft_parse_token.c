@@ -1,5 +1,25 @@
 #include "main.h"
 
+t_list	*ft_parse_escape(char *s, int *i)
+{
+	char	*text;
+	t_list	*node;
+
+	*i += 1;
+	if (s[*i] == '\0')
+		ft_error();
+	text = ft_substr(s, *i, 1);
+	if (text == NULL)
+		return (NULL);
+	node = ft_lstnew(text);
+	if (node == NULL)
+	{
+		free(text);
+		return (NULL);
+	}
+	return (node);
+}
+
 t_list	*ft_parse_list(char *s)
 {
 	t_list	*list;

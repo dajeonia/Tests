@@ -1,4 +1,5 @@
 #include <stdlib.h>
+
 t_list	*ft_parse_cmd(t_info *info, char *s, int *i)
 {
 	t_list	*list;
