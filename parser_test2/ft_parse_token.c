@@ -17,31 +17,8 @@ t_list	*ft_parse_escape(char *s, int *i)
 		free(text);
 		return (NULL);
 	}
+	*i += 1;
 	return (node);
-}
-
-t_list	*ft_parse_list(char *s)
-{
-	t_list	*list;
-	t_list	*node;
-	int		i;
-
-	i = 0;
-	list = NULL;
-	while (s[i])
-	{
-		if (s[i] == ' ')
-			node = ft_parse_space(s, &i, " ");
-		else
-			node = ft_parse_token(s, &i, " ");
-		if (node == NULL)
-		{
-			ft_txtclear(&list);
-			return (NULL);
-		}
-		ft_lstadd_back(&list, node);
-	}
-	return (list);
 }
 
 t_list	*ft_parse_token(char *s, int *i, const char *set)
@@ -76,4 +53,43 @@ t_list	*ft_parse_space(char *s, int *i, const char *set)
 	if (node == NULL)
 		return (NULL);
 	return (node);
+}
+
+t_list	*ft_lstparse(t_list *list)
+{
+	t_list	*node;
+	char	*join;
+	char	*new;
+
+	join = ft_strdup("");
+	while (list)
+	{
+		join = ft_strdup(join, );
+		list = list->next;
+	}
+	return (join);
+}
+
+t_list	*ft_parse_env(char *s)
+{
+	t_list	*list;
+	t_list	*node;
+	int		i;
+
+	i = 0;
+	list = NULL;
+	while (s[i])
+	{
+		if (s[i] == ' ')
+			node = ft_parse_space(s, &i, " ");
+		else
+			node = ft_parse_token(s, &i, " ");
+		if (node == NULL)
+		{
+			ft_txtclear(&list);
+			return (NULL);
+		}
+		ft_lstadd_back(&list, node);
+	}
+	return (list);
 }
