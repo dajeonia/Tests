@@ -1,14 +1,20 @@
 #include "main.h"
 
-t_list	*ft_parse_escape(char *s, int *i)
+t_list	*ft_parse_escape(char *s, int *i, const char *set)
 {
 	char	*text;
 	t_list	*node;
 
 	*i += 1;
 	if (s[*i] == '\0')
+	{
 		ft_error();
-	text = ft_substr(s, *i, 1);
+		return (NULL);
+	}
+	if (ft_isin(s[*i], set))
+		text = ft_substr(s, *i, 1);
+	else
+		text = ft_strdup("\\");
 	if (text == NULL)
 		return (NULL);
 	node = ft_lstnew(text);
