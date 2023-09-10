@@ -1,7 +1,6 @@
 t_list	*ft_parse_quote(char *s, int *i)
 {
-	t_list	*node;
-	char	*text;
+	t_list	*text;
 
 	*i += 1;
 	text = ft_parse_token(s, *i, "\'");
@@ -9,15 +8,10 @@ t_list	*ft_parse_quote(char *s, int *i)
 		return (NULL);
 	if (s[*i] == '\0')
 	{
-		free(text);
+		ft_txtclear(&text);
 		error("bash: ");
 		return (NULL);
 	}
-	node = ft_lstnew(text);
-	if (node == NULL)
-	{
-		free(text);
-		return (NULL);
-	}
+	*i += 1;
 	return (node);
 }
